@@ -1,5 +1,5 @@
 from pydantic import BaseModel 
 
-class Item(BaseModel):
+class Blog(BaseModel):
     title: str
     body: str | None = None
