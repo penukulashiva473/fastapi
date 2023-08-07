@@ -12,10 +12,20 @@ router = APIRouter(
 get_db = database.get_db
 
 
-@router.post('/', response_model=schemas.ShowUser)
+@router.post('/api/register')
 def create_user(request: schemas.User,db: Session = Depends(get_db)):
-    return user.create(request,db)
+    data = user.create(request,db)
+    if data:
+        return {
+                "status": "success",
+                "message": "User successfully registered!",
+                "data": data
+                }
+    else:
+        return {
+                "status": "error",
+                "code": "INVALID_REQUEST",
+                "message": "Invalid request. Please provide all required fields: username, email, password, full_name."
+                }
 
-@router.get('/{id}',response_model=schemas.ShowUser)
-def get_user(id:int,db: Session = Depends(get_db)):
-    return user.show(id,db)
+

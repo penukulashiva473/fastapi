@@ -3,36 +3,41 @@ from pydantic import BaseModel
 
 
 class BlogBase(BaseModel):
-    title: str
-    body: str
+    key: str
+    value: str
 
 class Blog(BlogBase):
     class Config():
         orm_mode = True
 
 class User(BaseModel):
-    name:str
+    username:str
     email:str
     password:str
+    full_name:str
+    age: int
+    gender : str
+
 
 class ShowUser(BaseModel):
-    name:str
+    username:str
     email:str
-    blogs : List[Blog] =[]
+    full_name:str
+    age: int
+    gender : str
     class Config():
         orm_mode = True
 
 class ShowBlog(BaseModel):
-    title: str
-    body:str
-    creator: ShowUser
+    key: str
+    value:str
 
     class Config():
         orm_mode = True
 
 
 class Login(BaseModel):
-    username: str
+    email: str
     password:str
 
 
